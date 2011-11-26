@@ -28,9 +28,6 @@ American cigarets [sic]. One other thing: in statement 6, right means
 your right.
 -}
 
-import Control.Monad (guard)
-import Data.List (permutations, nub)
-
 
 {- The data types. -}
 
