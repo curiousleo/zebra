@@ -174,13 +174,16 @@ houseSpace = [House a b c d e
                , d <- beverages
                , e <- cigarettes]
 
-houses :: [House]
-houses = filter (check hpreds) houseSpace
-
 solutionSpace :: [Solution]
 solutionSpace = [(Solution h1 h2 h3 h4 h5)
                   | h1 <- h, h2 <- h, h3 <- h, h4 <- h, h5 <- h]
                     where h = houses
+
+
+{- The solution. -}
+
+houses :: [House]
+houses = filter (check hpreds) houseSpace
 
 solutions :: [Solution]
 solutions = filter (check spreds) solutionSpace
