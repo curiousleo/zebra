@@ -54,8 +54,7 @@ data Color = Blue | Green | Ivory | Red | Yellow
 colors :: [Color]
 colors = [Blue, Green, Ivory, Red, Yellow]
 
-data Compatriot = Englishman | Japanese | Norwegian | Spaniard
-  | Ukrainian
+data Compatriot = Englishman | Japanese | Norwegian | Spaniard | Ukrainian
   deriving (Show, Eq)
 
 compatriots :: [Compatriot]
