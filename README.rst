@@ -39,8 +39,8 @@ The Program
 its lazy evaluation feature to generate the search space and then
 filtering it using predicates based on the rules of the Zebra Puzzle.
 
-It takes about three and a half minutes on my laptop the find all
-solutions to the puzzle (the number of solutions being exactly one).
+It takes about three and a half minutes on my laptop to find all the
+solutions to the puzzle (the number of solutions being one).
 
 Compile the program with ``ghc -O3 -o albert albert.hs`` and run with
 ``./albert``.
