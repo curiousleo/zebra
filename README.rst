@@ -1,19 +1,19 @@
-==============================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Albert solves the Zebra Puzzle
-==============================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The Puzzle
-==========
+~~~~~~~~~~
 
-1. There are five houses.
-2. The Englishman lives in the red house.
-3. The Spaniard owns the dog.
-4. Coffee is drunk in the green house.
-5. The Ukrainian drinks tea.
-6. The green house is immediately to the right of the ivory house.
-7. The Old Gold smoker owns snails.
-8. Kools are smoked in the yellow house.
-9. Milk is drunk in the middle house.
+1.  There are five houses.
+2.  The Englishman lives in the red house.
+3.  The Spaniard owns the dog.
+4.  Coffee is drunk in the green house.
+5.  The Ukrainian drinks tea.
+6.  The green house is immediately to the right of the ivory house.
+7.  The Old Gold smoker owns snails.
+8.  Kools are smoked in the yellow house.
+9.  Milk is drunk in the middle house.
 10. The Norwegian lives in the first house.
 11. The man who smokes Chesterfields lives in the house next to the man
     with the fox.
@@ -33,7 +33,7 @@ your right.
 (from http://en.wikipedia.org/wiki/Zebra_puzzle):
 
 The Program
-===========
+~~~~~~~~~~~
 
 ``albert`` solves the above puzzle. It is programmed Haskell, using
 its lazy evaluation feature to generate the search space and then
@@ -42,5 +42,5 @@ filtering it using predicates based on the rules of the Zebra Puzzle.
 It takes about three and a half minutes on my laptop to find all the
 solutions to the puzzle (the number of solutions being one).
 
-Compile the program with ``ghc -O3 -o albert albert.hs`` and run with
+Compile the program with ``ghc -O3 -o albert albert.lhs`` and run with
 ``./albert``.
