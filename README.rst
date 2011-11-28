@@ -39,8 +39,13 @@ The Program
 its lazy evaluation feature to generate the search space and then
 filtering it using predicates based on the rules of the Zebra Puzzle.
 
-It takes about three and a half minutes on my laptop to find all the
-solutions to the puzzle (the number of solutions being one).
+``ghc -O3 -o albert albert.lhs && time ./albert`` on my laptop gives
+(not giving away the solution here!)::
 
-Compile the program with ``ghc -O3 -o albert albert.lhs`` and run with
-``./albert``.
+  Solution (House {color = …, compatriot = …, pet = …, beverage = …,
+  cigarette = …}) (House …) (House …) (House …) (House …)
+
+  real    1m42.629s
+  user    1m42.246s
+  sys     0m0.196s
+
