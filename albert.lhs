@@ -81,11 +81,11 @@ possible values for this property:
 > beverages :: [Beverage]
 > beverages = [Coffee, Juice, Milk, Tea, Water]
 
-> data Cigarette = Chesterfields | Kools | Lucky_Strikes | Old_Gold | Parliaments
+> data Cigarette = Chesterfields | Kools | Luckies | Old_Gold | Parliaments
 >   deriving (Show, Eq)
 
 > cigarettes :: [Cigarette]
-> cigarettes = [Chesterfields, Kools, Lucky_Strikes, Old_Gold, Parliaments]
+> cigarettes = [Chesterfields, Kools, Luckies, Old_Gold, Parliaments]
 
 Predicates
 ~~~~~~~~~~
@@ -177,7 +177,7 @@ kept. [should be … a house …]
 13. The Lucky Strike smoker drinks orange juice.
 
 > hpred13 :: House -> Bool
-> hpred13 h = (cigarette h == Lucky_Strikes) == (beverage h == Juice)
+> hpred13 h = (cigarette h == Luckies) == (beverage h == Juice)
 
 14. The Japanese smokes Parliaments.
 
