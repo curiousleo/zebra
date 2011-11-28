@@ -203,7 +203,7 @@ Predicates that apply to solutions
 > spreds :: [Solution -> Bool]
 > spreds = [spred9, spred10, spred0, spred6, spred11, spred12, spred15]
 
-Search space
+Search Space
 ~~~~~~~~~~~~
 
 ``houseSpace`` contains all possible combinations of house properties:
