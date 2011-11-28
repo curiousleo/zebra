@@ -39,9 +39,10 @@ The Program
 its lazy evaluation feature to generate the search space and then
 filtering it using predicates based on the rules of the Zebra Puzzle.
 
-``ghc -O3 -o albert albert.lhs && time ./albert`` on my laptop gives
-(not giving away the solution here!)::
+Time needed to run the program on my laptop (not giving away the
+solution here!)::
 
+  $ ghc -O3 -o albert albert.lhs && time ./albert
   Solution (House {color = …, compatriot = …, pet = …, beverage = …,
   cigarette = …}) (House …) (House …) (House …) (House …)
 
