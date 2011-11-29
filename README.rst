@@ -30,7 +30,7 @@ different pets, drink different beverages and smoke different brands of
 American cigarets [sic]. One other thing: in statement 6, right means
 your right.
 
-(from http://en.wikipedia.org/wiki/Zebra_puzzle):
+(from http://en.wikipedia.org/wiki/Zebra_puzzle)
 
 The Program
 ~~~~~~~~~~~
