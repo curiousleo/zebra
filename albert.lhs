@@ -95,12 +95,12 @@ houses is painted a different color, and their inhabitants are of
 different national extractions, own different pets, drink different
 beverages and smoke different brands of American cigarets [sic].
 
-``spred0`` makes sure that every property occurs exactly once in all the
+``p0`` makes sure that every property occurs exactly once in all the
 houses of a possible solution.
 
-> spred0 :: Solution -> Bool
-> spred0 (Solution h1 h2 h3 h4 h5) = all ppred0 [(h1, h2), (h1, h3), (h1, h4), (h1, h5), (h2, h3), (h2, h4), (h2, h5), (h3, h4), (h3, h5), (h4, h5)]
->   where ppred0 ((House a1 b1 c1 d1 e1), (House a2 b2 c2 d2 e2)) =
+> p0 :: Solution -> Bool
+> p0 (Solution h1 h2 h3 h4 h5) = all p [(h1, h2), (h1, h3), (h1, h4), (h1, h5), (h2, h3), (h2, h4), (h2, h5), (h3, h4), (h3, h5), (h4, h5)]
+>   where p ((House a1 b1 c1 d1 e1), (House a2 b2 c2 d2 e2)) =
 >           and [a1 /= a2, b1 /= b2, c1 /= c2, d1 /= d2, e1 /= e2]
 
 1. There are five houses.
@@ -114,94 +114,97 @@ red, *or* the inhabitant is not an Englishman and the color is not red.
 This pattern applies to most of the predicates that make statements
 about houses.
 
-> hpred2 :: House -> Bool
-> hpred2 h = (compatriot h == Englishman) == (color h == Red)
+> p2 :: House -> Bool
+> p2 h = (compatriot h == Englishman) == (color h == Red)
 
 3. The Spaniard owns the dog.
 
-> hpred3 :: House -> Bool
-> hpred3 h = (compatriot h == Spaniard) == (pet h == Dog)
+> p3 :: House -> Bool
+> p3 h = (compatriot h == Spaniard) == (pet h == Dog)
 
 4. Coffee is drunk in the green house.
 
-> hpred4 :: House -> Bool
-> hpred4 h = (beverage h == Coffee) == (color h == Green)
+> p4 :: House -> Bool
+> p4 h = (beverage h == Coffee) == (color h == Green)
 
 5. The Ukrainian drinks tea.
 
-> hpred5 :: House -> Bool
-> hpred5 h = (compatriot h == Ukrainian) == (beverage h == Tea)
+> p5 :: House -> Bool
+> p5 h = (compatriot h == Ukrainian) == (beverage h == Tea)
 
 6. The green house is immediately to the right of the ivory house.
 
-> spred6 :: Solution -> Bool
-> spred6 (Solution h1 h2 h3 h4 h5) = any ppred6 [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
->   where ppred6 (left, right) = color right == Green && color left == Ivory
+> p6 :: Solution -> Bool
+> p6 (Solution h1 h2 h3 h4 h5) = any p [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
+>   where p (left, right) = color right == Green && color left == Ivory
 
 7. The Old Gold smoker owns snails.
 
-> hpred7 :: House -> Bool
-> hpred7 h = (cigarette h == Old_Gold) == (pet h == Snails)
+> p7 :: House -> Bool
+> p7 h = (cigarette h == Old_Gold) == (pet h == Snails)
 
 8. Kools are smoked in the yellow house.
 
-> hpred8 :: House -> Bool
-> hpred8 h = (cigarette h == Kools) == (color h == Yellow)
+> p8 :: House -> Bool
+> p8 h = (cigarette h == Kools) == (color h == Yellow)
 
 9. Milk is drunk in the middle house.
 
-> spred9 :: Solution -> Bool
-> spred9 (Solution h1 h2 h3 h4 h5) = beverage h3 == Milk
+> p9 :: Solution -> Bool
+> p9 (Solution h1 h2 h3 h4 h5) = beverage h3 == Milk
 
 10. The Norwegian lives in the first house.
 
-> spred10 :: Solution -> Bool
-> spred10 (Solution h1 h2 h3 h4 h5) = compatriot h1 == Norwegian
+> p10 :: Solution -> Bool
+> p10 (Solution h1 h2 h3 h4 h5) = compatriot h1 == Norwegian
 
 11. The man who smokes Chesterfields lives in the house next to the man
 with the fox.
 
-> spred11 :: Solution -> Bool
-> spred11 (Solution h1 h2 h3 h4 h5) = any ppred11 [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
->   where ppred11 (h1, h2) = (cigarette h1 == Chesterfields && pet h2 == Fox)
->                            || (cigarette h2 == Chesterfields && pet h1 == Fox)
+> p11 :: Solution -> Bool
+> p11 (Solution h1 h2 h3 h4 h5) = any p [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
+>   where p (h1, h2) = (cigarette h1 == Chesterfields && pet h2 == Fox)
+>                      || (cigarette h2 == Chesterfields && pet h1 == Fox)
 
 12. Kools are smoked in the house next to the house where the horse is
 kept. [should be … a house …]
 
-> spred12 :: Solution -> Bool
-> spred12 (Solution h1 h2 h3 h4 h5) = any ppred12 [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
->   where ppred12 (h1, h2) = (cigarette h1 == Kools && pet h2 == Horse)
->                            || (cigarette h2 == Kools && pet h1 == Horse)
+> p12 :: Solution -> Bool
+> p12 (Solution h1 h2 h3 h4 h5) = any p [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
+>   where p (h1, h2) = (cigarette h1 == Kools && pet h2 == Horse)
+>                      || (cigarette h2 == Kools && pet h1 == Horse)
 
 13. The Lucky Strike smoker drinks orange juice.
 
-> hpred13 :: House -> Bool
-> hpred13 h = (cigarette h == Luckies) == (beverage h == Juice)
+> p13 :: House -> Bool
+> p13 h = (cigarette h == Luckies) == (beverage h == Juice)
 
 14. The Japanese smokes Parliaments.
 
-> hpred14 :: House -> Bool
-> hpred14 h = (compatriot h == Japanese) == (cigarette h == Parliaments)
+> p14 :: House -> Bool
+> p14 h = (compatriot h == Japanese) == (cigarette h == Parliaments)
 
 15. The Norwegian lives next to the blue house.
 
-> spred15 :: Solution -> Bool
-> spred15 (Solution h1 h2 h3 h4 h5) = any ppred15 [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
->   where ppred15 (h1, h2) = (compatriot h1 == Norwegian && color h2 == Blue)
->                            || (compatriot h2 == Norwegian && color h1 == Blue)
+> p15 :: Solution -> Bool
+> p15 (Solution h1 h2 h3 h4 h5) = any p [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
+>   where p (h1, h2) = (compatriot h1 == Norwegian && color h2 == Blue)
+>                      || (compatriot h2 == Norwegian && color h1 == Blue)
 
 Predicates that apply to houses
 -------------------------------
 
-> hpreds :: [House -> Bool]
-> hpreds = [hpred2, hpred3, hpred4, hpred5, hpred7, hpred8, hpred13, hpred14]
+> hps :: [House -> Bool]
+> hps = [p2, p3, p4, p5, p7, p8, p13, p14]
 
 Predicates that apply to solutions
 ----------------------------------
 
-> spreds :: [Solution -> Bool]
-> spreds = [spred9, spred10, spred0, spred6, spred11, spred12, spred15]
+``p9`` and ``p10`` are the cheapest solution predicates, so they are
+checked first.
+
+> sps :: [Solution -> Bool]
+> sps = [p9, p10, p0, p6, p11, p12, p15]
 
 Search Space
 ~~~~~~~~~~~~
@@ -231,13 +234,13 @@ Solution
 are true:
 
 > houses :: [House]
-> houses = filter (check hpreds) houseSpace
+> houses = filter (check hps) houseSpace
 
 ``solutions`` returns all solutions for which all solution predicates
 are true:
 
 > solutions :: [Solution]
-> solutions = filter (check spreds) solutionSpace
+> solutions = filter (check sps) solutionSpace
 
 Helper Functions
 ~~~~~~~~~~~~~~~~
