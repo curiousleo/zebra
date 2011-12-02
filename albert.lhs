@@ -38,24 +38,24 @@ Data Types
 A solution consists of a row of houses in a certain order.
 
 > data Solution = Solution House House House House House
->   deriving (Show, Eq)
+>     deriving (Show, Eq)
 
 A house has a color, an inhabitant of a certain nationality, a pet,
 a beverage and a cigarette associated with it.
 
-> data House = House {
->   color :: Color
-> , compatriot :: Compatriot
-> , pet :: Pet
-> , beverage :: Beverage
-> , cigarette :: Cigarette
-> } deriving (Show, Eq)
+> data House = House
+>     { color :: Color
+>     , compatriot :: Compatriot
+>     , pet :: Pet
+>     , beverage :: Beverage
+>     , cigarette :: Cigarette
+>     } deriving (Show, Eq)
 
 Properties of a House
 ---------------------
 
 > data Color = Blue | Green | Ivory | Red | Yellow
->   deriving (Show, Eq)
+>     deriving (Show, Eq)
 
 For each property, there is a function that returns a list of all the
 possible values for this property:
@@ -64,25 +64,25 @@ possible values for this property:
 > colors = [Blue, Green, Ivory, Red, Yellow]
 
 > data Compatriot = Englishman | Japanese | Norwegian | Spaniard | Ukrainian
->   deriving (Show, Eq)
+>     deriving (Show, Eq)
 
 > compatriots :: [Compatriot]
 > compatriots = [Englishman, Japanese, Norwegian, Spaniard, Ukrainian]
 
 > data Pet = Dog | Fox | Horse | Snails | Zebra
->   deriving (Show, Eq)
+>     deriving (Show, Eq)
 
 > pets :: [Pet]
 > pets = [Dog, Fox, Horse, Snails, Zebra]
 
 > data Beverage = Coffee | Juice | Milk | Tea | Water
->   deriving (Show, Eq)
+>     deriving (Show, Eq)
 
 > beverages :: [Beverage]
 > beverages = [Coffee, Juice, Milk, Tea, Water]
 
 > data Cigarette = Chesterfields | Kools | Luckies | Old_Gold | Parliaments
->   deriving (Show, Eq)
+>     deriving (Show, Eq)
 
 > cigarettes :: [Cigarette]
 > cigarettes = [Chesterfields, Kools, Luckies, Old_Gold, Parliaments]
@@ -99,9 +99,14 @@ beverages and smoke different brands of American cigarets [sic].
 houses of a possible solution.
 
 > p0 :: Solution -> Bool
-> p0 (Solution h1 h2 h3 h4 h5) = all p [(h1, h2), (h1, h3), (h1, h4), (h1, h5), (h2, h3), (h2, h4), (h2, h5), (h3, h4), (h3, h5), (h4, h5)]
->   where p ((House a1 b1 c1 d1 e1), (House a2 b2 c2 d2 e2)) =
->           and [a1 /= a2, b1 /= b2, c1 /= c2, d1 /= d2, e1 /= e2]
+> p0 (Solution h1 h2 h3 h4 h5) = all p cs
+>   where
+>     p ((House a1 b1 c1 d1 e1), (House a2 b2 c2 d2 e2)) =
+>         and [a1 /= a2, b1 /= b2, c1 /= c2, d1 /= d2, e1 /= e2]
+>     cs =
+>         [ (h1, h2), (h1, h3), (h1, h4), (h1, h5), (h2, h3)
+>         , (h2, h4), (h2, h5), (h3, h4), (h3, h5), (h4, h5)
+>         ]
 
 1. There are five houses.
 This is fulfilled by the definition of ``Solution``.
@@ -135,8 +140,10 @@ about houses.
 6. The green house is immediately to the right of the ivory house.
 
 > p6 :: Solution -> Bool
-> p6 (Solution h1 h2 h3 h4 h5) = any p [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
->   where p (left, right) = color right == Green && color left == Ivory
+> p6 (Solution h1 h2 h3 h4 h5) = any p cs
+>   where
+>     p (left, right) = color right == Green && color left == Ivory
+>     cs = [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
 
 7. The Old Gold smoker owns snails.
 
@@ -151,28 +158,34 @@ about houses.
 9. Milk is drunk in the middle house.
 
 > p9 :: Solution -> Bool
-> p9 (Solution h1 h2 h3 h4 h5) = beverage h3 == Milk
+> p9 (Solution _ _ h3 _ _) = beverage h3 == Milk
 
 10. The Norwegian lives in the first house.
 
 > p10 :: Solution -> Bool
-> p10 (Solution h1 h2 h3 h4 h5) = compatriot h1 == Norwegian
+> p10 (Solution h1 _ _ _ _) = compatriot h1 == Norwegian
 
 11. The man who smokes Chesterfields lives in the house next to the man
 with the fox.
 
 > p11 :: Solution -> Bool
-> p11 (Solution h1 h2 h3 h4 h5) = any p [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
->   where p (h1, h2) = (cigarette h1 == Chesterfields && pet h2 == Fox)
->                      || (cigarette h2 == Chesterfields && pet h1 == Fox)
+> p11 (Solution h1 h2 h3 h4 h5) = any p cs
+>   where
+>     p (left, right) =
+>         (cigarette left == Chesterfields && pet right == Fox)
+>         || (cigarette right == Chesterfields && pet left == Fox)
+>     cs = [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
 
 12. Kools are smoked in the house next to the house where the horse is
 kept. [should be … a house …]
 
 > p12 :: Solution -> Bool
-> p12 (Solution h1 h2 h3 h4 h5) = any p [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
->   where p (h1, h2) = (cigarette h1 == Kools && pet h2 == Horse)
->                      || (cigarette h2 == Kools && pet h1 == Horse)
+> p12 (Solution h1 h2 h3 h4 h5) = any p cs
+>   where
+>     p (left, right) =
+>         (cigarette left == Kools && pet right == Horse)
+>         || (cigarette right == Kools && pet left == Horse)
+>     cs = [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
 
 13. The Lucky Strike smoker drinks orange juice.
 
@@ -187,9 +200,12 @@ kept. [should be … a house …]
 15. The Norwegian lives next to the blue house.
 
 > p15 :: Solution -> Bool
-> p15 (Solution h1 h2 h3 h4 h5) = any p [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
->   where p (h1, h2) = (compatriot h1 == Norwegian && color h2 == Blue)
->                      || (compatriot h2 == Norwegian && color h1 == Blue)
+> p15 (Solution h1 h2 h3 h4 h5) = any p cs
+>   where
+>     p (left, right) =
+>         (compatriot left == Norwegian && color right == Blue)
+>         || (compatriot right == Norwegian && color left == Blue)
+>     cs = [(h1, h2), (h2, h3), (h3, h4), (h4, h5)]
 
 Predicates that apply to houses
 -------------------------------
@@ -212,19 +228,22 @@ Search Space
 ``houseSpace`` contains all possible combinations of house properties:
 
 > houseSpace :: [House]
-> houseSpace = [House a b c d e
->                | a <- colors
->                , b <- compatriots
->                , c <- pets
->                , d <- beverages
->                , e <- cigarettes]
+> houseSpace =
+>     [ House a b c d e
+>     | a <- colors
+>     , b <- compatriots
+>     , c <- pets
+>     , d <- beverages
+>     , e <- cigarettes
+>     ]
 
 The ``solutionSpace`` consists of all possible combinations of houses:
 
 > solutionSpace :: [Solution]
-> solutionSpace = [(Solution h1 h2 h3 h4 h5)
->                   | h1 <- h, h2 <- h, h3 <- h, h4 <- h, h5 <- h]
->                     where h = houses
+> solutionSpace =
+>     [ (Solution h1 h2 h3 h4 h5)
+>     | h1 <- h, h2 <- h, h3 <- h, h4 <- h, h5 <- h ]
+>   where h = houses
 
 
 Solution
@@ -252,4 +271,5 @@ Check if all predicates ``ps`` apply to ``x``:
 
 Print all solutions:
 
+> main :: IO [()]
 > main = mapM print solutions
