@@ -46,7 +46,7 @@ solution here!)::
   Solution (House {color = …, compatriot = …, pet = …, beverage = …,
   cigarette = …}) (House …) (House …) (House …) (House …)
 
-  real    1m42.629s
-  user    1m42.246s
-  sys     0m0.196s
+  real	1m25.781s
+  user	1m25.461s
+  sys	0m0.128s
 
