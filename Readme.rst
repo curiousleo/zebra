@@ -48,3 +48,11 @@ solution here!)::
   user	1m25.461s
   sys	0m0.128s
 
+  $ time swipl -q -t halt -s zebra.pl
+  …
+  …
+
+  real    0m0.029s
+  user    0m0.024s
+  sys     0m0.004s
+
