@@ -1,7 +1,3 @@
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Albert solves the Zebra Puzzle
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 The Puzzle
 ~~~~~~~~~~
 
@@ -32,17 +28,19 @@ your right.
 
 (from http://en.wikipedia.org/wiki/Zebra_puzzle)
 
-The Program
-~~~~~~~~~~~
+The Programs
+~~~~~~~~~~~~
 
-``albert`` solves the above puzzle. It is programmed Haskell, using
-its lazy evaluation feature to generate the search space and then
-filtering it using predicates based on the rules of the Zebra Puzzle.
+``zebra.lhs`` and ``zebra.pl`` solve the above puzzle. The former is
+programmed Haskell, using its lazy evaluation feature to generate the
+search space and then filtering it using predicates based on the rules
+of the Zebra Puzzle. The latter is a simple Prolog program (in the
+SWI-Prolog dialect).
 
-Time needed to run the program on my laptop (not giving away the
+Time needed to run the programs on my laptop (not giving away the
 solution here!)::
 
-  $ ghc -O3 -o albert albert.lhs && time ./albert
+  $ ghc -O3 -o zebra zebra.lhs && time ./zebra
   Solution (House {color = …, compatriot = …, pet = …, beverage = …,
   cigarette = …}) (House …) (House …) (House …) (House …)
 
